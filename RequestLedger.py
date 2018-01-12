@@ -5,6 +5,7 @@ from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 from optparse import OptionParser
 import datetime
 import socket
+import argparse
 
 requestdate = datetime.datetime.today().strftime('%Y%m%d')
 requestid = 0
@@ -51,10 +52,14 @@ class RequestHandler(BaseHTTPRequestHandler):
     do_PUT = do_POST
     do_DELETE = do_GET
         
-def main():
-    port = 80
-    #port=443
-    server = HTTPServer(('', port), RequestHandler)
+def main(host, port):
+    server = HTTPServer((host, port), RequestHandler)
     server.serve_forever()
 
-        
+parser = argparse.ArgumentParser(description='Request Ledger: A program to log and gracefully deal with incoming HTTP connections and present the user with a log of these for their review.')
+parser.add_argument('-p', dest="port", default=8080, help='What port should I bind to?')
+parser.add_argument('--host', dest="host", default="0.0.0.0", help='What host should I bind to?')
+
+args = parser.parse_args()
+
+main(args.host, int(args.port))        
