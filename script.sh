@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "Got here"
+echo "Got herez"
 echo $test
