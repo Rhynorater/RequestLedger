@@ -1,3 +1,5 @@
 language: python
 install: true
-script: python RequestLedger.py -h
+script: 
+ - ./script.sh
+ - python RequestLedger.py -h
